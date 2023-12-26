@@ -1,5 +1,5 @@
 import React from "react";
-import { Outlet, useParams } from "react-router-dom";
+import { Link, Outlet, useParams } from "react-router-dom";
 import { produtosData } from '../produtos/index';
 import './style.css'
 
@@ -16,7 +16,7 @@ const Produto = () => {
             <img className="produto-imagem" src={produtoDetails.imagem} alt={produtoDetails.nome} />
             <p className="produto-descricao">{produtoDetails.descricao}</p>
             <p className="produto-preco">{produtoDetails.preco}</p>
-
+            <Link to={'/produtos'} className="produto-link">Voltar</Link>
             <Outlet />
         </div>
     );

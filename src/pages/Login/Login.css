@@ -18,6 +18,12 @@
     flex-direction: column;
     align-items: center;
   }
+
+  .logo{
+    width: 60px;
+    height: 120px;
+    border-radius: 100px;
+  }
   
   .login h1 {
     margin-bottom: 20px;
@@ -57,4 +63,8 @@
   button:hover {
     background-color: #c49ac4; 
   }
-  
+
+  .paragrafo1:hover{
+    text-decoration: underline;
+    cursor: pointer;
+  }

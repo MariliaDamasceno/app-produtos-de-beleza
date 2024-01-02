@@ -28,6 +28,7 @@
   .home-container p {
     font-size: 1.2em;
     margin-bottom: 20px;
+    text-align: justify;
   }
   .home-container h3{
     font-size: 1.4em;

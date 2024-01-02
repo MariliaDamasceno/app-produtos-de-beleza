@@ -3,11 +3,10 @@ import './style.css'
 
 const NavMenu = () => {
     return (
-        <nav>
-            <h1>Salão de beleza</h1>
+        <nav className="NavMenu">
+            <h1 className="NavMenu-h1">Os melhores produtos veganos</h1>
             <ul>
                 <li><Link to='/'>Home</Link></li>
-                <li><Link to='/login'>Login</Link></li>
                 <li><Link to='/produtos'>Produtos</Link></li>
                 <li><Link to='/register'>Cadastrar</Link></li>
             </ul>

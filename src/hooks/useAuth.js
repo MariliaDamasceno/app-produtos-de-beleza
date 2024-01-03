@@ -1,33 +1,33 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { loginUserApi, getUserById } from "../service/authService";
+import api from "../service/api";
 
 const useAuth = () => {
     const [userLogged, setUserLogged] = useState(false);
-    const [loading] = useState(true)
+    const [loading, setLoading] = useState(true);
+    const [userFull, setUserFull] = useState({});
     const navigate = useNavigate();
 
     useEffect(() => {
-        const userInfo = localStorage.getItem('userInfo');
-
+        const userInfo = JSON.parse(localStorage.getItem('userInfo'));
         if (userInfo) {
+            api.defaults.headers.common['Authorization'] = `Bearer ${userInfo.token}`;
+            findUserById(userInfo.id);
             setUserLogged(true);
         }
+
+        setLoading(false)
     }, [])
 
-    const loginUser = async (inputValue) => {
-        const response = await fetch('http://localhost:3000/auth/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(inputValue)
-        });
-        const data = await response.json();
-        console.log(data);
-        localStorage.setItem('userInfo', JSON.stringify(data))
-        navigate('/')
+    const loginUser = async (inputValues) => {
+        const response = await loginUserApi(inputValues);
+        const data = await response.data;
+        localStorage.setItem('userInfo', JSON.stringify(data));
+        api.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
+        navigate('/');
         setUserLogged(true);
-    };
+    }
 
     const logoutUser = () => {
         setUserLogged(false);
@@ -35,7 +35,14 @@ const useAuth = () => {
         navigate('/login')
     }
 
-    return {userLogged, loading, loginUser, logoutUser}
+    const findUserById = async (idUser) => {
+        const response = await getUserById(idUser);
+        setUserFull(response.data);
+        console.log(userFull)
+    }
+
+    return { userLogged, userFull, loading, loginUser, logoutUser }
 
 }
+
 export default useAuth;

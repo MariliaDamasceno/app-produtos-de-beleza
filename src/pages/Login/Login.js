@@ -1,6 +1,5 @@
 
 import React, { useState , useContext} from 'react';
-import "./Login.css";
 import { AuthContext } from '../../Context/AuthContext';
 import logo from '../../assents/logo.png'
 
@@ -27,28 +26,45 @@ const Login = () => {
   };
 
   return (
-    
-    <div className="login">
-      <div className="login-box">
-        <img className='logo' src={logo} alt='logotipo food app' />
-        <h1>Faça seu login</h1>
-        <form className="login-form" onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor="email">Email</label>
-            <input type="email" id="email" name="email" onChange={handleChangeValue} />
+    <main className='h-screen w-full banner'>
+      <div className='flex flex-col items-center pt-20 h-screen'>
+        <img className='w-52' src={logo} alt='logotipo food app' />
+        <form
+          onSubmit={handleSubmit}
+          action=''
+          className='bg-white w-96 mt-6 p-4 rounded-lg shadow-lg'
+        >
+          <div className='flex flex-col space-y-6'>
+            <input
+              type='email'
+              placeholder='Digite seu email'
+              name='email'
+              className='w-ful px-4 py-3 rounded-lg ring-red-200 border bg-gray-200 focus:outline-none transition duration-300'
+              onChange={handleChangeValue}
+            />
+
+            <input
+              type='password'
+              placeholder='Digite sua senha'
+              name='senha'
+              className='w-ful px-4 py-3 rounded-lg ring-red-200 border bg-gray-200 focus:outline-none transition duration-300'
+              onChange={handleChangeValue}
+            />
           </div>
-          <div>
-            <label htmlFor="password">Senha</label>
-            <input type="password" id="password" name="password" onChange={handleChangeValue} />
-          </div>
-          <button type="submit">Entrar</button>
+          <button
+            type='submit'
+            className='w-full py- bg-primary text-white focus:ring-4 mt-6 rounded-lg transition duration-300'
+          >
+            Entrar
+          </button>
         </form>
-        <p className='paragrafo1'>
+        <p className='text-base text-primary text-center my-6 hover:underline cursor-pointer'>
           Criar uma conta
         </p>
       </div>
-    </div>
+    </main>
   );
 };
+
 
 export default Login;

@@ -1,52 +1,47 @@
 import React, { useContext } from 'react';
 import logo from '../../assents/logo.png';
 import { AuthContext } from '../../Context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaShoppingCart } from 'react-icons/fa';
-import { MdOutlineExitToApp } from 'react-icons/md';
-import './NavBar.css'
-import NavMenu from '../NavMenu';
+import { HiOutlineLogout } from 'react-icons/hi'
+import NavMenu from '../NavMenu/index'
 
 const NavBar = () => {
-   const { userLogged, logoutUser } = useContext(AuthContext)
-   const navigate = useNavigate()    
-    return (
-        <>
-          <header className='header-navbar'>
-            <nav className='nav-container'>
-              <div className='brand-container'>
-                <div className='logo-container'>
-                  <img src={logo} alt='Logo' className='logo' />
-                </div>
-                <div className='title-container'>
-                  <h1 >Salão Beleza</h1>
-                </div>
-              </div>
-              <div className='user-container'>
-                {userLogged ? (
-                  <div className='user-info'>
-                    <div className='cart-icon'>
-                      <span className='cart-count'>2</span>
-                      <FaShoppingCart className='cart-icon' />
-                    </div>
-                    <img src='' alt='' className='user-avatar' />
-                    <p className='user-greeting'>Bem vindo, Nome!</p>
-                    <MdOutlineExitToApp className='exit-icon'  onClick={logoutUser}/>
-                  </div>
-                ) : (
-                  <div className='buttons-container'>
-                    <button onClick={() => navigate('/login')} className='login-button'>
-                      Login
-                    </button>
-                    <button className='register-button'>Register</button>
-                  </div>
-                )}
-              </div>
-            </nav>
-          </header>
-          <NavMenu />
-        </>
-      );
-    };
+    const { userLogged, userFull, logoutUser } = useContext(AuthContext);
+    const navigate = useNavigate();
 
-export default NavBar;
+    return (
+      <>
+        <header className='bg-clean z-50 w-full'>
+            <nav className='flex items-center max-w-screen-xl mx-auto px-6 py-3'>
+                <div className='flex flex-grow items-center'>
+                    <Link to='/'>
+                        <img src={logo} alt='logo' className='w-10 cursor-pointer' />
+                    </Link>
+                    <h1 className='text-center text-3x1 font-bold text-primary p-1 mx-2'>Salão Beleza</h1>
+                </div>
+                {userLogged ? (
+                    <div className='flex items-center justify-end space-x-6'>
+                        <div className='relative flex cursor-pointer'>
+                            <span className='bg-secondary w-4 h-4 p-1 rounded-full flex items-center justify-center text-white absolute -right-2 -top-2'>2</span>
+                            <FaShoppingCart className='text-primary w-6 h-6 cursor-pointer' onClick={() => navigate('/cart')} />
+                        </div>
+                        <p className='text-black'>Bem-vindo(a), {userFull.nome}!</p>
+                        <img src={userFull.imagem} className='w-10 h-10 rounded-full' alt='imagem do usuário' />
+                        <button onClick={() => navigate('/admin')} className="text-xs uppercase bg-primary px-4 py-2 font-bold text-white rounded-lg transition duration-700 hover:scale-105 mt-2">Admin</button>
+                        <HiOutlineLogout className='text-primary w-6 h-6 cursor-pointer' onClick={logoutUser} />
+                    </div>
+                ) : (
+                    <div className='flex items-center justify-end space-x-6'>
+                        <button onClick={() => navigate('/login')} className='text-primary font-bold'>Login</button>
+                        <button onClick={() => navigate('/register')} className='text-xs uppercase bg-primary px-4 py-2 font-bold text-secondary rounded-lg transition duration-700 hover:scale-105'>Cadastro</button>
+                    </div>
+                )}
+            </nav>
+        </header>
+        <NavMenu/>
+    </>
+    )
+}
+
+export default NavBar

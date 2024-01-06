@@ -1,11 +1,21 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 .bg-primary{
-    background-color: #f38cd9;
+    background-color: #DB1D56;
 }
 .text-primary{
-    color: #f38cd9;
+    color: #DB1D56;
+}
+.text-secondary{
+    color: #332C2E;
+}
+
+.home-banner {
+    background-image: url('../src/assents/background1.jpeg');
+    height: 350px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
 }

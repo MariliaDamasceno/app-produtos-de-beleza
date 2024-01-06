@@ -1,7 +1,7 @@
-
 import React, { useState , useContext} from 'react';
 import { AuthContext } from '../../Context/AuthContext';
 import logo from '../../assents/logo.png'
+import { useNavigate } from 'react-router-dom';
 
 
 const Login = () => {
@@ -12,6 +12,7 @@ const Login = () => {
 
   const {loginUser} = useContext(AuthContext);
 
+  const navigate = useNavigate()
   
   const handleChangeValue = (event) => {
     setInputValue({
@@ -26,7 +27,7 @@ const Login = () => {
   };
 
   return (
-    <main className='h-screen w-full banner'>
+    <main className='h-screen w-full home-banner'>
       <div className='flex flex-col items-center pt-20 h-screen'>
         <img className='w-52' src={logo} alt='logotipo food app' />
         <form
@@ -58,7 +59,7 @@ const Login = () => {
             Entrar
           </button>
         </form>
-        <p className='text-base text-primary text-center my-6 hover:underline cursor-pointer'>
+        <p onClick={() => navigate('/register')} className='text-base text-primary text-center my-6 hover:underline cursor-pointer'>
           Criar uma conta
         </p>
       </div>

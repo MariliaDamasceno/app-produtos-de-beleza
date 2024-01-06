@@ -3,35 +3,66 @@ import './App.css';
 import { Routes, Route } from 'react-router-dom'
 import Home from './pages/Home';
 import Login from './pages/Login/Login';
-import { Produtos } from './pages/produtos/index';
-import Produto from './pages/produto/index';
 import NotFound from './pages/NotFound';
 import Register from './pages/register';
-import ProdutoReviews from './pages/ProdutoReviews';
 import { AuthProvider } from './Context/AuthContext';
 import NavBar from './componentes/NavBar/NavBar';
 import ProtectedRoute from './routes/ProtectedRoute';
+import Admin from './pages/Admin';
+import AddProduct from './pages/addProducts';
+import EditProduct from './pages/EditProduct';
+import ProductInfo from './pages/ProductInfo';
+import Cart from './pages/Cart';
+import Complete from './pages/complete';
 
 
 
 function App() {
   return (
     <>
-      <AuthProvider>     
+      <AuthProvider>
         <NavBar />
         <Routes>
-          <Route path='/produtos' element={
+          <Route path='/' element={
             <ProtectedRoute>
-              <Produtos/>
+              <Home />
+            </ProtectedRoute>
+          } />
+           <Route path='/product/:id' element={
+            <ProtectedRoute>
+              <ProductInfo/>
             </ProtectedRoute>
           }/>
-          <Route path='/' element={<Home />} />
-          <Route path='/login' element={<Login />} />         
-          <Route path='/produto/:id' element={<Produto />}>
-            <Route path='reviews' element={<ProdutoReviews />} />
-          </Route>
+            <Route path='/cart' element={
+            <ProtectedRoute>
+              <Cart/>
+            </ProtectedRoute>
+          }/>
+           <Route path='/complete' element={
+            <ProtectedRoute>
+              <Complete/>
+            </ProtectedRoute>
+          }/>
+          
+          <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
           <Route path='/*' element={<NotFound />} />
+          <Route path='/admin' element={
+            <ProtectedRoute>
+              <Admin />
+            </ProtectedRoute>
+          } />
+           <Route path='/admin/add-product' element={
+            <ProtectedRoute>
+              <AddProduct/>
+            </ProtectedRoute>
+          }/>
+           <Route path='/admin/edit-product/:id' element={
+            <ProtectedRoute>
+              <EditProduct/>
+            </ProtectedRoute>
+          }/>
+
         </Routes>
       </AuthProvider>
     </>

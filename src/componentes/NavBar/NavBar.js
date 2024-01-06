@@ -4,7 +4,7 @@ import { AuthContext } from '../../Context/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaShoppingCart } from 'react-icons/fa';
 import { HiOutlineLogout } from 'react-icons/hi'
-import NavMenu from '../NavMenu/index'
+
 
 const NavBar = () => {
     const { userLogged, userFull, logoutUser } = useContext(AuthContext);
@@ -16,9 +16,9 @@ const NavBar = () => {
             <nav className='flex items-center max-w-screen-xl mx-auto px-6 py-3'>
                 <div className='flex flex-grow items-center'>
                     <Link to='/'>
-                        <img src={logo} alt='logo' className='w-10 cursor-pointer' />
+                        <img src={logo} alt='logo' className='w-32 cursor-pointer' />
                     </Link>
-                    <h1 className='text-center text-3x1 font-bold text-primary p-1 mx-2'>Salão Beleza</h1>
+                    <h1 className='text-center text-3x1 font-bold text-primary p-1 mx-2'>Beauty Store</h1>
                 </div>
                 {userLogged ? (
                     <div className='flex items-center justify-end space-x-6'>
@@ -39,7 +39,7 @@ const NavBar = () => {
                 )}
             </nav>
         </header>
-        <NavMenu/>
+        
     </>
     )
 }

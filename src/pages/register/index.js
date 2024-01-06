@@ -1,64 +1,62 @@
+import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import logo from '../../assents/logo.png'
-import { useState } from "react";
-import { registerUser } from "../../service/authService";
-
+import logo from '../../assents/logo.png';
+import { registerUser } from '../../service/authService';
 
 const Register = () => {
-  const [inputValue, setInputValue] = useState({
+  const [inputValues, setInputValues] = useState({
     nome: '',
     email: '',
     senha: '',
-    imagem:''
-  });
+    imagem: '',
+    admin: false
+  })
+
   const navigate = useNavigate();
 
-
- const handleChangeValue = (event) => {
-    setInputValue({
-      ...inputValue,
+  const handleChangeValues = (event) => {
+    setInputValues({
+      ...inputValues,
       [event.target.name]: event.target.value
-    });
-  };
-
+    })
+    console.log(inputValues);
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const response = await registerUser(inputValue)
-    if (response.data){
-      alert(`Usuario ${response.data.nome} cadastrado com sucesso`)
+    console.log(inputValues);
+    const response = await registerUser(inputValues);
+    if (response.data) {
+      alert(`${response.data.nome} cadastrado com sucesso!`)
       navigate('/login')
+    }
   }
-}
- 
+
   return (
-    <main className="h-screen w-full">
-      <div className="flex pt-20 flex-col items-center h-screen">
-        <img src={logo} alt="Logo Salão" className="w-10"></img>
-        <h2 className="text-2xl text-gray-600">Faça seu cadastro e aproveite descontos especiais</h2>
-        <form className="bg-write w-96 mt-6 p-4 rounded-lg shadow-lg" onSubmit={handleSubmit}>
-          <div className="flex flex-col space-y-6">
-            
-            <input type="text" id="name" name="nome" placeholder="Digite seu nome completo"
-              className="w-full px-4 py-3 rounded-lg ring-red-400 focus:right-1 focus:outline-none transition duration-300 border border-gr focus:shadow-xl" 
-              onChange={handleChangeValue}/>
-
-            <input type="email" id="email" name="email" placeholder="Digite seu email"
-              className="w-full px-4 py-3 rounded-lg ring-red-400 focus:right-1 focus:outline-none transition duration-300 border border-gr focus:shadow-xl" 
-              onChange={handleChangeValue}/>
-
-            <input type="password" id="senha" name="senha" placeholder="Digite sua senha"
-              className="w-full px-4 py-3 rounded-lg ring-red-400 focus:right-1 focus:outline-none transition duration-300 border border-gr focus:shadow-xl" 
-              onChange={handleChangeValue}/>
-
-            <input type="text" id="imagem" name="imagem" placeholder="Insira a URL da imagem"
-              className="w-full px-4 py-3 rounded-lg ring-red-400 focus:right-1 focus:outline-none transition duration-300 border border-gr focus:shadow-xl" 
-              onChange={handleChangeValue}/>
+    <main className='home-banner'>
+      <div>
+        <form onSubmit={handleSubmit} className='flex flex-col justify-center items-center'>
+          <img className="w-40 mt-5" src={logo} alt="logo Talent Food" />
+          <h1 className='text-2x1 text-primary mt-5 font-bold'>Cadastro de usuário</h1>
+          <div className="grid grid-cols-1 w-2/5">
+            <div className='flex flex-col mt-5 mb-5'>
+              <label htmlFor='nome' className='text-primary text-md font-bold mb-2'>Nome:</label>
+              <input type='text' name='nome' placeholder='Digite seu nome' className='border custom-border-color p-2 rounded-lg focus:ring-1 focus:outline-none transition duration-300 focus:shadow-xl' onChange={handleChangeValues} />
+            </div>
+            <div className='flex flex-col mb-5'>
+              <label htmlFor='email' className='text-primary text-md font-bold mb-2'>E-mail:</label>
+              <input type='email' name='email' placeholder='Digite seu e-mail' className='border custom-border-color p-2 rounded-lg focus:ring-1 focus:outline-none transition duration-300 focus:shadow-xl' onChange={handleChangeValues} />
+            </div>
+            <div className='flex flex-col mb-5'>
+              <label htmlFor='senha' className='text-primary text-md font-bold mb-2'>Senha:</label>
+              <input type='password' name='senha' placeholder='Digite sua senha' className='border custom-border-color p-2 rounded-lg focus:ring-1 focus:outline-none transition duration-300 focus:shadow-xl' onChange={handleChangeValues} />
+            </div>
+            <div className='flex flex-col mb-5'>
+              <label htmlFor='imagem' className='text-primary text-md font-bold mb-2'>Imagem:</label>
+              <input type='text' name='imagem' placeholder='Insira a URL da imagem' className='border custom-border-color p-2 rounded-lg focus:ring-1 focus:outline-none transition duration-300 focus:shadow-xl' onChange={handleChangeValues} />
+            </div>
           </div>
-          <button
-            type='submit'
-            className='w-full py- bg-primary text-white focus:ring-4 mt-6 rounded-lg transition duration-300'>
-            Entrar</button>
+          <button type='submit' className='text-xs uppercase bg-primary px-4 py-2 font-bold text-secondary rounded-lg transition duration-700 hover:scale-105 mb-10'>Cadastrar</button>
         </form>
       </div>
     </main>
